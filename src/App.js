@@ -1,50 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import "./App.css";
+import styled from "styled-components";
+import bg from "./pastel-oil-painting-canvas-background_53876-93729.jpg";
+
+const Spinner = styled.div`
+  position: absolute;
+  top: 45%;
+  left: 47%;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  border: 3px solid ${"palevioletred"};
+  border-top-color: ${"pick"};
+  animation: anim 0.7s infinite linear;
+
+  @keyframes anim {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const Home = lazy(() => import("./pages/home"));
+const Result = lazy(() => import("./pages/result"));
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(0);
-
-  useEffect(() => {
-    fetch('/api/time').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
-    });
-  }, []);
-
   return (
-    <div className="App">
-      <header className="App-header">
+    <Container>
+      <Suspense fallback={<Spinner />}>
         <BrowserRouter>
-          <div>
-            <Link className="App-link" to="/">Home</Link>
-            &nbsp;|&nbsp;
-            <Link className="App-link" to="/page2">Page2</Link>
-          </div>
           <Switch>
-            <Route exact path="/">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                  Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                  className="App-link"
-                  href="https://reactjs.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Learn React
-                </a>
-                <p>The current time is {currentTime}.</p>
-            </Route>
-            <Route path="/page2">
-                <p>This is page 2!</p>
-            </Route>
+            <Route path="/" component={Home} />
+            <Route path="/result" component={Result} />
           </Switch>
         </BrowserRouter>
-      </header>
-    </div>
+      </Suspense>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  position: absolute;
+  padding-top: 20px;
+  width: 100%;
+  height: 100%;
+  font-family: "Chosunilbo_myungjo";
+  background-image: url(${bg});
+  background-size: cover;
+`;
 
 export default App;
