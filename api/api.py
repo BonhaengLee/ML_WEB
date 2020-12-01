@@ -21,7 +21,7 @@ def add_article():
 
     return article_data 
 
-# 일반 기사 제목 
+# 제목, bleu 데이터 
 @app.route('/api/normal')
 def get_normal():
 
