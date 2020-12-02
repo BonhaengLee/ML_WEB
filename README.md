@@ -1,5 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. npm install
 
-A Flask based API backend was added in the *api* directory.
-
-Read my [tutorial](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project) on how to create Flask + React combined projects.
+2. 터미널 2개 동시 실행
+    - src/api/ 위치에서 yarn start-api 
+    - 프로젝트 루트 위치에서 yarn start
